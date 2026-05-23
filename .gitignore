@@ -1,0 +1,7 @@
+config.sc
+*.env
+.env
+.scala-build/
+.bsp/
+*.class
+*.tasty
