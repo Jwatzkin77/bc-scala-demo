@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>BC Product List</title>
+  <style>
+    body { font-family: sans-serif; padding: 2rem; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #ccc; padding: 8px 12px; text-align: left; }
+    th { background: #f0f0f0; }
+  </style>
+</head>
+<body>
+  <h1>Products from GraphQL</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Latin</th>
+        <th>Portuguese</th>
+        <th>Italian</th>
+        <th>Spanish</th>
+      </tr>
+    </thead>
+    <tbody id="product-list">
+      <tr><td colspan="3">Loading...</td></tr>
+    </tbody>
+  </table>
+
+  <script>
+    fetch('http://localhost:8000/graphql', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        query: `{ products { id name price sku latin port ital esp} }`
+      })
+    })
+    .then(res => res.json())
+    .then(data => {
+      const tbody = document.getElementById('product-list');
+      tbody.innerHTML = '';
+      data.data.products.forEach(product => {
+        tbody.innerHTML += `
+          <tr>
+            <td>${product.id}</td>
+            <td>${product.name}</td>
+            <td>$${product.price}</td>
+            <td>${product.latin}</td>
+            <td>${product.port}</td>
+            <td>${product.ital}</td>
+            <td>${product.esp}</td>
+          </tr>`;
+      });
+    })
+    .catch(err => {
+      document.getElementById('product-list').innerHTML =
+        `<tr><td colspan="3">Error: ${err.message}</td></tr>`;
+    });
+  </script>
+</body>
+</html>
