@@ -14,8 +14,8 @@ class Product:
 # --- RESOLVER DATA ---
 def get_products() -> List[Product]:
     return [
-        Product(id=1, name="Bravo", price=0.52, sku="70005"),
-        Product(id=2, name="Alpha", price=9.99, sku="70006"),
+        Product(id=1, name="Alpha", price=0.52, sku="70005"),
+        Product(id=2, name="Bravo", price=9.99, sku="70006"),
         Product(id=3, name="Charlie", price=14.99, sku="70007"),
     ]
 
